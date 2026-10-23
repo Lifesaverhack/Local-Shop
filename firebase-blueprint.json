@@ -1,0 +1,274 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile in LocalBazaar Nepal",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique Google user ID"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User's full name"
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address"
+        },
+        "city": {
+          "type": "string",
+          "description": "City of user, default Dhangadhi"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact phone number for buyer/seller"
+        },
+        "avatarUrl": {
+          "type": "string",
+          "description": "Profile picture URL"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Account creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["userId", "displayName", "email", "city", "createdAt"]
+    },
+    "Listing": {
+      "title": "Listing",
+      "description": "Product listing posted by seller",
+      "type": "object",
+      "properties": {
+        "sellerId": {
+          "type": "string",
+          "description": "UID of the seller"
+        },
+        "sellerName": {
+          "type": "string",
+          "description": "Name of the seller"
+        },
+        "title": {
+          "type": "string",
+          "description": "Listing title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Full product description"
+        },
+        "priceNpr": {
+          "type": "number",
+          "description": "Price in Nepalese Rupees"
+        },
+        "category": {
+          "type": "string",
+          "description": "Product category"
+        },
+        "condition": {
+          "type": "string",
+          "enum": ["New", "Used - Like New", "Used - Good", "Used - Fair"],
+          "description": "Item condition"
+        },
+        "city": {
+          "type": "string",
+          "description": "City name e.g. Dhangadhi"
+        },
+        "locality": {
+          "type": "string",
+          "description": "Neighborhood or ward e.g. Hasanpur, Chauraha, Campus Chowk"
+        },
+        "photos": {
+          "type": "array",
+          "description": "List of photo URLs or image URIs"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "sold"],
+          "description": "Listing active/sold state"
+        },
+        "isFeatured": {
+          "type": "boolean",
+          "description": "Promoted listing flag"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Listing creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["sellerId", "sellerName", "title", "description", "priceNpr", "category", "condition", "city", "status", "createdAt"]
+    },
+    "Favorite": {
+      "title": "Favorite",
+      "description": "User saved favorite listing",
+      "type": "object",
+      "properties": {
+        "listingId": {
+          "type": "string",
+          "description": "ID of saved listing"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When item was favorited"
+        }
+      },
+      "required": ["listingId", "createdAt"]
+    },
+    "ChatThread": {
+      "title": "ChatThread",
+      "description": "Conversation between buyer and seller regarding a listing",
+      "type": "object",
+      "properties": {
+        "listingId": {
+          "type": "string",
+          "description": "Referenced listing document ID"
+        },
+        "listingTitle": {
+          "type": "string",
+          "description": "Title of the item"
+        },
+        "listingPrice": {
+          "type": "number",
+          "description": "Price of the item"
+        },
+        "buyerId": {
+          "type": "string",
+          "description": "Buyer user ID"
+        },
+        "buyerName": {
+          "type": "string",
+          "description": "Buyer user name"
+        },
+        "sellerId": {
+          "type": "string",
+          "description": "Seller user ID"
+        },
+        "sellerName": {
+          "type": "string",
+          "description": "Seller user name"
+        },
+        "participantIds": {
+          "type": "array",
+          "description": "Array of both buyerId and sellerId"
+        },
+        "lastMessage": {
+          "type": "string",
+          "description": "Preview of last message"
+        },
+        "lastMessageTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of latest message"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Chat created timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last updated timestamp"
+        }
+      },
+      "required": ["listingId", "buyerId", "sellerId", "participantIds", "createdAt"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Message inside a chat thread",
+      "type": "object",
+      "properties": {
+        "chatId": {
+          "type": "string",
+          "description": "Parent chat ID"
+        },
+        "senderId": {
+          "type": "string",
+          "description": "Sender user ID"
+        },
+        "senderName": {
+          "type": "string",
+          "description": "Sender display name"
+        },
+        "text": {
+          "type": "string",
+          "description": "Message content"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Message sent timestamp"
+        }
+      },
+      "required": ["chatId", "senderId", "senderName", "text", "createdAt"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "User report for inappropriate listing",
+      "type": "object",
+      "properties": {
+        "listingId": {
+          "type": "string",
+          "description": "Listing ID being reported"
+        },
+        "reporterId": {
+          "type": "string",
+          "description": "User ID of reporter"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason category"
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional notes"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Report timestamp"
+        }
+      },
+      "required": ["listingId", "reporterId", "reason", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Public and private profile data for a registered user"
+    },
+    "/users/{userId}/favorites/{listingId}": {
+      "schema": { "$ref": "#/entities/Favorite" },
+      "description": "Saved listings for a user"
+    },
+    "/listings/{listingId}": {
+      "schema": { "$ref": "#/entities/Listing" },
+      "description": "Marketplace item listings"
+    },
+    "/chats/{chatId}": {
+      "schema": { "$ref": "#/entities/ChatThread" },
+      "description": "Conversations between buyer and seller"
+    },
+    "/chats/{chatId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/ChatMessage" },
+      "description": "Messages inside a conversation"
+    },
+    "/reports/{reportId}": {
+      "schema": { "$ref": "#/entities/Report" },
+      "description": "Community moderation reports"
+    }
+  }
+}
